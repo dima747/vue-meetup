@@ -13,10 +13,11 @@
     <v-layout row wrap class="mt-2">
       <v-flex xs12>
         <v-carousel>
-          <v-carousel-item 
+          <v-carousel-item style="cursor: pointer"
             v-for="meetup in meetups" 
             :src="meetup.imageUrl" 
-            :key="meetup.id">
+            :key="meetup.id"
+            @click.native="onLoadMeetup(meetup.id)">
             <div class="title">
               {{ meetup.title }}
             </div>
@@ -36,19 +37,20 @@
 
 <script>
 export default {
-  data () {
-    return {
-      meetups: [
-        { imageUrl: 'https://www.acg.org/sites/files/styles/masthead_1440/public/acg-new-york-2880x1200.jpg?itok=UcGCICsV', id: 'asdasdasgdf123', title: 'Meetup in NewYork' },
-        { imageUrl: 'http://www.livetradingnews.com/wp-content/uploads/2017/06/paris-attractions-xlarge.jpg', id: 'asdfdssgdf123', title: 'Meetup in Paris' }
-      ]
+  computed: {
+    meetups () {
+      return this.$store.getters.featuredMeetups
+    }
+  },
+  methods: {
+    onLoadMeetup (id) {
+      this.$router.push('/meetups/' + id)
     }
   }
 }
 </script>
 
 <style lang="stylus">
-  $color-pack = false
   @import '~vuetify/src/stylus/main'
 </style>
 
