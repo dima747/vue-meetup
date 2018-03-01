@@ -6,10 +6,12 @@ import 'vuetify/dist/vuetify.min.css'
 import { store } from './store'
 import DateFilter from './filters/date'
 import * as Firebase from 'firebase'
+import AlertCmp from './components/Shared/Alert'
 
 import colors from 'vuetify/es5/util/colors'
 
 Vue.filter('date', DateFilter)
+Vue.component('app-alert', AlertCmp)
 
 Vue.use(Vuetify, {
   theme: {
@@ -35,5 +37,11 @@ new Vue({
       projectId: 'meetup-68632',
       storageBucket: 'meetup-68632.appspot.com'
     })
+    Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+    this.$store.dispatch('loadMeetups')
   }
 })
