@@ -53,10 +53,9 @@
                 <v-layout row>
                   <v-flex xs12>
                     <v-btn type="sumbit" :disabled="loading" :loading="loading">
-                      Sing up
                       <span slot="loader" class="custom-loader">
                         <v-icon light>cached</v-icon>
-                      </span>
+                      </span>Sign up
                     </v-btn>
                   </v-flex>
                 </v-layout>
@@ -82,7 +81,7 @@ export default {
   },
   computed: {
     comparePasswords () {
-      return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
+      return this.password !== this.confirmPassword ? 'Passwords do not match' : true
     },
     user () {
       return this.$store.getters.user
@@ -103,7 +102,10 @@ export default {
   },
   methods: {
     onSignup () {
-      this.$store.dispatch('signUserUp', {email: this.email, password: this.password})
+      this.$store.dispatch('signUserUp', {
+        email: this.email,
+        password: this.password
+      })
     },
     onDismissed () {
       this.$store.dispatch('clearError')

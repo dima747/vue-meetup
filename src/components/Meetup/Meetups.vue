@@ -1,8 +1,21 @@
 <template>
   <v-container>
+
+    <v-layout row>
+      <v-flex xs12 class="text-xs-center">
+        <v-progress-circular
+          indeterminate
+          class="primary--text"
+          :width="7"
+          :size="70"
+          v-if="loading"></v-progress-circular>
+      </v-flex>
+    </v-layout>
+
     <v-layout row wrap class="mb-2"
       v-for="meetup in meetups" 
-      :key="meetup.id">
+      :key="meetup.id"
+      v-if="!loading">
       <v-flex xs12 sm10 md8 offset-sm1 offset--md2>
         <v-card class="info">
           <v-container fluid>
@@ -40,6 +53,9 @@ export default {
   computed: {
     meetups () {
       return this.$store.getters.loadedMeetups
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }

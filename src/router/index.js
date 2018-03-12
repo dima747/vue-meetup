@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import NotFound from '@/components/NotFound'
 import Meetups from '@/components/Meetup/Meetups'
 import Meetup from '@/components/Meetup/Meetup'
 import CreateMeetup from '@/components/Meetup/CreateMeetup'
@@ -33,6 +34,7 @@ export default new Router({
       path: '/meetup/new',
       name: 'CreateMeetup',
       component: CreateMeetup,
+      force: true,
       beforeEnter: AuthGuard
     },
     {
@@ -50,6 +52,11 @@ export default new Router({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '*',
+      name: '404',
+      component: NotFound
     }
   ],
   mode: 'history'
